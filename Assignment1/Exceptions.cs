@@ -6,22 +6,7 @@ namespace Assignment1;
 
 public class Exceptions
 {
-    private static readonly string dataPath =
-        @"/Users/sly/school-work/Projects/dirCrawler/MCDA5510_Assignments/Assignment1/Assignment1/testWriteToFile.csv";
-
-
     private static readonly Logger Logger = AppLogger.GetAppLoggerFactory();
-
-    private static void HMain()
-    {
-        // var dataPath = @"testWriteToFile2.csv";
-        var sw = OpenStream(dataPath);
-        if (sw is null)
-            return;
-        sw.WriteLine("This is the first line.");
-        sw.WriteLine("This is the second line.");
-        sw.Close();
-    }
 
     public static StreamWriter OpenStream(string path)
     {

@@ -27,11 +27,13 @@ public class SimpleCSVParser
     public List<CustomerInfo> CustomerInfos { get; set; }
 
 
-    public void parse(string fileName)
+    public void Parse(string fileName)
     {
+        /*
         var debugFile =
             "/Users/sly/school-work/Projects/dirCrawler/MCDA5510_Assignments/Assignment1/Assignment1/Sample Data/2018/1/1/CustomerData3.csv";
         if (fileName.Equals(debugFile)) _logger.Information("Debug");
+        */
 
         try
         {
@@ -42,7 +44,7 @@ public class SimpleCSVParser
                 var lineCount = 1;
                 while (!parser.EndOfData)
                 {
-                    //Process row
+                    // Process file row
                     var fields = parser.ReadFields();
                     if (lineCount != 1)
                     {
@@ -66,10 +68,10 @@ public class SimpleCSVParser
                 }
             }
         }
-        catch (IOException ioe)
+        catch (IOException ioException)
         {
             _logger.Information("File doesn't exist");
-            _logger.Debug(ioe.StackTrace);
+            _logger.Debug(ioException.StackTrace);
         }
     }
 }

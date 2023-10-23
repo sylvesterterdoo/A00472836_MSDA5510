@@ -1,48 +1,50 @@
-using System;
-using System.IO;
-using Serilog.Core;
+using System.Collections.Generic;
 
 namespace Assignment1;
 
 public class TestProgram
 {
+    private const string OutputDataPath =
+        @"/Users/sly/school-work/Projects/SUBMIT/ProgAssign1/Assignment1/customersFile.csv";
 
-    public static void HeMain(string[] args)
+    private const string InputDataPath =
+        @"/Users/sly/school-work/Projects/SUBMIT/ProgAssign1/Assignment1/Sample Data/";
+
+    public static void Main(string[] args)
     {
-        Logger logger = AppLogger.GetAppLoggerFactory();
-        logger.Information("Hello world");
+        var logger = AppLogger.GetAppLoggerFactory();
+
+        var totalTimer = new Timer();
+        var writeToFileTimer = new Timer();
+
+        var dirWalker = new DirWalker();
+
+        totalTimer.Start();
+        dirWalker.Walk(InputDataPath);
+
+        // write to file
+        writeToFileTimer.Start();
+        WriteToFile(dirWalker.SimpleCsvParser.CustomerInfos);
+        writeToFileTimer.Stop();
+        // end write to file
+
+        totalTimer.Stop();
+
+        logger.Information($"Total execution time: {totalTimer.ElapsedTimeInMs}ms");
+        logger.Information($"Total number of valid rows: {dirWalker.SimpleCsvParser.ValidRows}");
+        logger.Information($"Total number of skipped rows: {dirWalker.SimpleCsvParser.SkippedRows}");
+        logger.Information($"Total time to write to file: {writeToFileTimer.ElapsedTimeInMs}ms");
     }
-    
-    
-    public static void HelloMain(string[] args)
+
+
+    private static void WriteToFile(List<CustomerInfo> customersInfo)
     {
-        var rootPath =
-            @"/Users/sly/school-work/Projects/dirCrawler/MCDA5510_Assignments/Assignment1/Assignment1/Sample Data";
+        var streamWriter = Exceptions.OpenStream(OutputDataPath);
+        if (streamWriter is null)
+            return;
+        foreach (var customerInfo in customersInfo)
+            streamWriter.WriteLine(customerInfo.CustomerInfoToCsv());
 
-        var files = Directory.GetFiles(rootPath, "*", SearchOption.AllDirectories);
-        var numOfFile = files.Length; // 13095
-        Console.WriteLine($"Number of files {numOfFile}");
-        foreach (var file in files)
-        {
-            var info = new FileInfo(file);
-            Console.WriteLine(info.Length);
-        }
-
-        var exists = Directory.Exists($"{rootPath}/DeleteFolder");
-        
-        if (exists) Console.WriteLine("Directory exist");
-        else Console.WriteLine("Directory does not exist");
-
-
-        // Console.WriteLine(Path.GetDirectoryName(file));
-        // Console.WriteLine(Path.GetFullPath(file));
-        // Console.WriteLine(Path.GetFileNameWithoutExtension(file));
-        // Console.WriteLine(Path.GetFileName(file));  // Get file name
-
-        // Read directories in this path
-        // var directories = Directory.GetDirectories(rootPath, "*", SearchOption.AllDirectories);
-        // var directoriesLength = directories.Length; // 623
-        // Console.WriteLine($"Number of Directories {directoriesLength}");
-        // foreach (var directory in directories) Console.WriteLine(directory);
+        streamWriter.Close();
     }
 }

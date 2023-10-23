@@ -31,19 +31,13 @@ namespace Assignment1;
 
 public class DirWalker
 {
-    private const string OutputDataPath =
-        @"/Users/sly/school-work/Projects/dirCrawler/MCDA5510_Assignments/Assignment1/Assignment1/testWriteToFile.csv";
-
-    private const string InputDataPath =
-        @"/Users/sly/school-work/Projects/dirCrawler/MCDA5510_Assignments/Assignment1/Assignment1/Sample Data/2018/1/8/";
-
-    private readonly Exceptions _exceptions = new();
-
-    private readonly SimpleCSVParser _simpleCsvParser = new();
+    // private readonly Exceptions _exceptions = new();
 
     private readonly Logger _logger = AppLogger.GetAppLoggerFactory();
 
-    public void walk(string path)
+    public readonly SimpleCSVParser SimpleCsvParser = new();
+
+    public void Walk(string path)
     {
         var list = Directory.GetDirectories(path);
 
@@ -53,7 +47,7 @@ public class DirWalker
             if (Directory.Exists(dirpath))
             {
                 _logger.Information($"Dir: {dirpath}");
-                walk(dirpath);
+                Walk(dirpath);
             }
 
         // start reading here. 
@@ -61,7 +55,7 @@ public class DirWalker
         timer.Start();
 
         var fileList = Directory.GetFiles(path);
-        foreach (var filepath in fileList) _simpleCsvParser.parse(filepath);
+        foreach (var filepath in fileList) SimpleCsvParser.Parse(filepath);
 
         // stop reading here.
         timer.Stop();
@@ -69,41 +63,29 @@ public class DirWalker
     }
 
 
-    private void WriteToFile()
-    {
-        var streamWriter = Exceptions.OpenStream(OutputDataPath);
-        if (streamWriter is null)
-            return;
-        foreach (var customerInfo in _simpleCsvParser.CustomerInfos)
-            streamWriter.WriteLine(customerInfo.CustomerInfoToCsv());
-
-        streamWriter.Close();
-    }
-
-
-    public static void Main(string[] args)
-    {
-        var logger = AppLogger.GetAppLoggerFactory();
-
-        var totalTimer = new Timer();
-        var writeToFileTimer = new Timer();
-
-        var dirWalker = new DirWalker();
-
-        totalTimer.Start();
-        dirWalker.walk(InputDataPath);
-
-        // write to file
-        writeToFileTimer.Start();
-        dirWalker.WriteToFile();
-        writeToFileTimer.Stop();
-        // end write to file
-
-        totalTimer.Stop();
-
-        logger.Information($"Total execution time: {totalTimer.ElapsedTimeInMs}ms");
-        logger.Information($"Total number of valid rows: {dirWalker._simpleCsvParser.ValidRows}");
-        logger.Information($"Total number of skipped rows: {dirWalker._simpleCsvParser.SkippedRows}");
-        logger.Information($"Total time to write to file: {writeToFileTimer.ElapsedTimeInMs}ms");
-    }
+    // public static void Main(string[] args)
+    // {
+    //     var logger = AppLogger.GetAppLoggerFactory();
+    //
+    //     var totalTimer = new Timer();
+    //     var writeToFileTimer = new Timer();
+    //
+    //     var dirWalker = new DirWalker();
+    //
+    //     totalTimer.Start();
+    //     dirWalker.walk(InputDataPath);
+    //
+    //     // write to file
+    //     writeToFileTimer.Start();
+    //     dirWalker.WriteToFile();
+    //     writeToFileTimer.Stop();
+    //     // end write to file
+    //
+    //     totalTimer.Stop();
+    //
+    //     logger.Information($"Total execution time: {totalTimer.ElapsedTimeInMs}ms");
+    //     logger.Information($"Total number of valid rows: {dirWalker._simpleCsvParser.ValidRows}");
+    //     logger.Information($"Total number of skipped rows: {dirWalker._simpleCsvParser.SkippedRows}");
+    //     logger.Information($"Total time to write to file: {writeToFileTimer.ElapsedTimeInMs}ms");
+    // }
 }
