@@ -59,33 +59,6 @@ public class DirWalker
 
         // stop reading here.
         timer.Stop();
-        _logger.Information($"Finished reading CSVs in {Path.GetFullPath(path)}: {timer.ElapsedTimeInMs}");
+        _logger.Information($"Finished reading CSVs in {Path.GetFullPath(path)}: {timer.ElapsedTimeInMs}ms");
     }
-
-
-    // public static void Main(string[] args)
-    // {
-    //     var logger = AppLogger.GetAppLoggerFactory();
-    //
-    //     var totalTimer = new Timer();
-    //     var writeToFileTimer = new Timer();
-    //
-    //     var dirWalker = new DirWalker();
-    //
-    //     totalTimer.Start();
-    //     dirWalker.walk(InputDataPath);
-    //
-    //     // write to file
-    //     writeToFileTimer.Start();
-    //     dirWalker.WriteToFile();
-    //     writeToFileTimer.Stop();
-    //     // end write to file
-    //
-    //     totalTimer.Stop();
-    //
-    //     logger.Information($"Total execution time: {totalTimer.ElapsedTimeInMs}ms");
-    //     logger.Information($"Total number of valid rows: {dirWalker._simpleCsvParser.ValidRows}");
-    //     logger.Information($"Total number of skipped rows: {dirWalker._simpleCsvParser.SkippedRows}");
-    //     logger.Information($"Total time to write to file: {writeToFileTimer.ElapsedTimeInMs}ms");
-    // }
 }
