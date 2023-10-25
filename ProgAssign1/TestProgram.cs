@@ -5,7 +5,7 @@ namespace Assignment1;
 public class TestProgram
 {
     private const string InputDataPath =
-        @"/Users/sly/school-work/Projects/SUBMIT/ProgAssign1/Assignment1/Sample Data/2018/1/30";
+        @"/Users/sly/school-work/Projects/SUBMIT/Assignment/ProgAssign1/Sample Data/2018/1/30";
 
     private const string OutputDataPath = @"../../../Output/customersFile.csv";
 

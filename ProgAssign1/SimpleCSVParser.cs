@@ -31,7 +31,7 @@ public class SimpleCSVParser
     {
         /*
         var debugFile =
-            "/Users/sly/school-work/Projects/dirCrawler/MCDA5510_Assignments/Assignment1/Assignment1/Sample Data/2018/1/1/CustomerData3.csv";
+            "/Users/sly/school-work/Projects/dirCrawler/MCDA5510_Assignments/ProgAssign1/ProgAssign1/Sample Data/2018/1/1/CustomerData3.csv";
         if (fileName.Equals(debugFile)) _logger.Information("Debug");
         */
 
