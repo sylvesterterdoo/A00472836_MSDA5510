@@ -35,6 +35,12 @@ The intermediate and end result of the program include
 - Total time it takes to write to file.
 
 ## Explain how to setup the program to run { const } 
-To execute the program setup the static fields {OutputDataPath and InputDataPath} in TestProgram.cs.
+To execute the program setup the static field {OutputDataPath} in TestProgram.cs. to point to the 
+folder containing the csv files.
 InputDataPath references the folders/csv files to read in the customer info 
-OutputDataPath references the single file where all the read in customer info will be written into.
+OutputDataPath {might require setup depending on your os} references the single file where all the read in customer info will be written into.
+
+## Result of the program execution 
+after the execution an output file and log file are created in the folders
+ProgAssign1/Output: contains a file with the csv content of all valid customer info
+ProgAssign1/logs: contains the log of the program execution
