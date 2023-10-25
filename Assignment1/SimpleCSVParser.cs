@@ -57,6 +57,7 @@ public class SimpleCSVParser
                         }
                         else
                         {
+                            customerInfo.Date = getCsvFileDate(fileName);
                             CustomerInfos.Add(customerInfo);
                             ValidRows += 1;
                         }
@@ -73,5 +74,27 @@ public class SimpleCSVParser
             _logger.Information("File doesn't exist");
             _logger.Debug(ioException.StackTrace);
         }
+    }
+
+    private string getCsvFileDate(string filePath)
+    {
+        var dirSeparatorChar = Path.DirectorySeparatorChar;
+        // var date = Path.GetDirectoryName(fileName).Split(dirSeparatorChar);
+        string date = null;
+        var directoryName = Path.GetDirectoryName(filePath);
+        if (directoryName != null)
+        {
+            var dirPath = directoryName.Split(dirSeparatorChar);
+            var length = dirPath.Length;
+            if (dirPath.Length >= 3)
+            {
+                var year = dirPath[length - 3];
+                var month = dirPath[length - 2];
+                var day = dirPath[length - 1];
+                date = $"{year}/{month}/{day}";
+            }
+        }
+
+        return date;
     }
 }

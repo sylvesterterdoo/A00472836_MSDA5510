@@ -8,7 +8,7 @@ public class CustomerInfo
     }
 
     public CustomerInfo(string firstName, string lastName, string streetNumber, string street, string city,
-        string province, string country, string postalCode, string phoneNumber, string email)
+        string province, string country, string postalCode, string phoneNumber, string email, string date)
     {
         FirstName = firstName;
         LastName = lastName;
@@ -20,6 +20,7 @@ public class CustomerInfo
         Country = country;
         PhoneNumber = phoneNumber;
         Email = email;
+        Date = date;
     }
 
     public string FirstName { get; set; }
@@ -32,6 +33,7 @@ public class CustomerInfo
     public string PostalCode { get; set; }
     public string PhoneNumber { get; set; }
     public string Email { get; set; }
+    public string Date { get; set; }
 
     // public override string ToString()
     // {
@@ -50,9 +52,14 @@ public class CustomerInfo
     public string CustomerInfoToCsv()
     {
         return
-            $"{FirstName},{LastName},{StreetNumber},{Street},{City},{Province},{PostalCode},{Country}, {PhoneNumber},{Email}";
+            $"{FirstName},{LastName},{StreetNumber},{Street},{City},{Province},{PostalCode},{Country}, {PhoneNumber},{Email},{Date}";
     }
 
+    public static string GetCustomerInfoCsvHeaders()
+    {
+        return
+            "First Name,Last Name,Street Number,Street,City,Province,Postal Code,Country,Phone Number,Email Address, Date";
+    }
 
     public static CustomerInfo CreateCustomerInfo(string[] customerDetails)
     {

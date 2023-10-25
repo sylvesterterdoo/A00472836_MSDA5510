@@ -4,11 +4,10 @@ namespace Assignment1;
 
 public class TestProgram
 {
-    private const string OutputDataPath =
-        @"/Users/sly/school-work/Projects/SUBMIT/ProgAssign1/Assignment1/customersFile.csv";
-
     private const string InputDataPath =
-        @"/Users/sly/school-work/Projects/SUBMIT/ProgAssign1/Assignment1/Sample Data/";
+        @"/Users/sly/school-work/Projects/SUBMIT/ProgAssign1/Assignment1/Sample Data/2018/1/30";
+
+    private const string OutputDataPath = @"../../../Output/customersFile.csv";
 
     public static void Main(string[] args)
     {
@@ -24,7 +23,7 @@ public class TestProgram
 
         // write to file
         writeToFileTimer.Start();
-        WriteToFile(dirWalker.SimpleCsvParser.CustomerInfos);
+        WriteCustomerInfoToCsvFile(dirWalker.SimpleCsvParser.CustomerInfos);
         writeToFileTimer.Stop();
         // end write to file
 
@@ -37,11 +36,12 @@ public class TestProgram
     }
 
 
-    private static void WriteToFile(List<CustomerInfo> customersInfo)
+    private static void WriteCustomerInfoToCsvFile(List<CustomerInfo> customersInfo)
     {
         var streamWriter = Exceptions.OpenStream(OutputDataPath);
         if (streamWriter is null)
             return;
+        streamWriter.WriteLine(CustomerInfo.GetCustomerInfoCsvHeaders());
         foreach (var customerInfo in customersInfo)
             streamWriter.WriteLine(customerInfo.CustomerInfoToCsv());
 

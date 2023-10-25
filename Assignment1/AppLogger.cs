@@ -12,7 +12,7 @@ public class AppLogger
         return new LoggerConfiguration()
             .WriteTo.Console()
             .WriteTo.File(new JsonFormatter(),
-                "ProgAssign1/logs.json",
+                "../../../logs/log.json",
                 LogEventLevel.Information)
             .WriteTo.File("all-.logs",
                 rollingInterval: RollingInterval.Day)

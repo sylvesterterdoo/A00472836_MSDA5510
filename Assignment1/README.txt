@@ -19,7 +19,7 @@ The program files include
 - TestProgram.cs
 
 Exception, SimpleCSVParser and DirWalker are the programs combined to recursively read a 
-series of data files in CSV Format and enter thme into a single file. 
+series of data files in CSV Format and enter them into a single file. 
 
 The TestProgram file is the Starter/Main program and the CustomerInfo program models customers
 and their attribute/info
